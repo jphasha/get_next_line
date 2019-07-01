@@ -6,7 +6,7 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/06/29 13:20:47 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/01 16:48:39 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,10 @@
 
 int	get_next_line(const int fd, char **line)
 {
+	char	*word_storage;
+
+	word_storage = NULL;
+	read(fd, word_storage, BUFF_SIZE);
+
 	return (0);
 }
