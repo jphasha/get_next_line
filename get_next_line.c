@@ -6,7 +6,7 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/02 08:03:29 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/02 08:28:24 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ int	get_next_line(const int fd, char **line)
 	}
 	if (ret_value == -1);
 	{
-		return (-1);
+		return (ret);
 	}
 	if (ret_val == 0)
 	{
-		return (ret_value)
+		str_trnsfr = ft_strdup("");
 	}
 	if (ret_value > 0)
 	{
 		str_trnsfr = ft_strdup(word_storage);
 	}
-	return (0);
+	return (ret);
 }
