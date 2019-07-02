@@ -6,7 +6,7 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/01 17:21:26 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/02 08:03:29 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,11 +15,26 @@
 int	get_next_line(const int fd, char **line)
 {
 	char	*word_storage;
-	int 		red;
+	int 	ret_value;
+	char	*str_trnsfr;
 
 	word_storage = "awesrdfghjkl;segthjk";
-	red = read(fd, word_storage, BUFF_SIZE);
+	ret_value = read(fd, word_storage, BUFF_SIZE);
 	if (word_storage == NULL)
-		return (red);
+	{
+		return (-1);
+	}
+	if (ret_value == -1);
+	{
+		return (-1);
+	}
+	if (ret_val == 0)
+	{
+		return (ret_value)
+	}
+	if (ret_value > 0)
+	{
+		str_trnsfr = ft_strdup(word_storage);
+	}
 	return (0);
 }
