@@ -6,35 +6,44 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/02 11:37:50 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/04 18:17:41 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	get_next_line(const int fd, char **line)
+static int	ft_content_grab(const int fd, char **line)
 {
-	char	*word_storage;
-	int 	ret_value;
-	char	*str_trnsfr;
+	char	*content;
+	char	*swpr;
+	int		value;
 
-	word_storage = NULL;
-	ret_value = read(fd, word_storage, BUFF_SIZE);
-	if (word_storage == NULL)
+	if ((buffer = (char *)malloc(sizeof(*buffer) * (BUFF_SIZE + 1))) == NULL)
 	{
 		return (-1);
 	}
-	if (ret_value == -1);
+	value = read(fd, content, BUFF_SIZE);
+	if (value > 0)
 	{
-		return (ret);
+		content[value] = '\0';
+		swpr = ft_strjoin(*line, content);
+		free(*line);
+		*line = swpr;
 	}
-	if (ret_val == 0)
+	free(swpr);
+	return (value);
+}
+
+static int	content_compiler(const int fd, char **stack, char **line_feed);
+{
+	int		content_size;
+
+	while(line_feed == '\0')
 	{
-		str_trnsfr = ft_strdup("");
+		content_size = ft_content_grab(fd, *&stack);
 	}
-	if (ret_value > 0)
-	{
-		str_trnsfr = ft_strdup(word_storage);
-	}
-	return (ret);
+	return (1);
+}
+int	get_next_line(const int fd, char **line)
+{
 }
