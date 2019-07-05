@@ -6,7 +6,7 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/05 10:15:22 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/05 12:16:35 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,28 @@ static int	ft_content_grab(const int fd, char **line)
 	return (value);
 }
 
-static int	content_compiler(const int fd, char **stack, char **line_feed);
+static int	content_compiler(const int fd, char **storage, char **content_checker);
 {
 	int		content_size;
 
-	while(line_feed == '\0')
+	while(content_checker == '\0')
 	{
-		content_size = ft_content_grab(fd, *&stack);
+		content_size = ft_content_grab(fd, *&storage);
+		if (content_size == 0)
+		{
+			if (ft_strlen(*storage) == 0)
+			{
+				return (0);
+			}
+			*storage = ft_strjoi(*storage, "\n");
+		}
+		if (content_size < 0)
+		{
+			return (-1);
+		}
+		else
+		{
+
 	}
 	return (1);
 }
