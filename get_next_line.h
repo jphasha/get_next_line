@@ -6,7 +6,7 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/25 09:53:15 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/05 20:22:11 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/05 21:52:26 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@
 
 # define BUFF_SIZE 32
 
-int	get_next_line(const int fd, char **line);
+int		get_next_line(const int fd, char **line);
 
 #endif

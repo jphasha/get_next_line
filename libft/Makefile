@@ -6,7 +6,7 @@
 #    By: jphasha <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/05/25 01:45:05 by jphasha           #+#    #+#              #
-#    Updated: 2019/06/27 17:45:57 by jphasha          ###   ########.fr        #
+#    Updated: 2019/06/28 20:30:18 by jphasha          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -48,10 +48,10 @@ $(OBJECTS): $(SOURCES)
 	CC -c $(flags) $(SOURCES)
 
 clean:
-	rm -f $(OBJECTS)
+	rm -rf $(OBJECTS)
 
 fclean: clean
-	rm -f $(NAME) program main.c
+	rm -rf $(NAME) program a.out main.c
 
 re: fclean all
 

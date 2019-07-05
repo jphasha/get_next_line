@@ -6,7 +6,7 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/05 23:47:27 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/06 00:09:42 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,7 @@ static int		ft_getbuffer(const int fd, char **line)
 
 	if ((buffer = (char *)malloc(sizeof(*buffer) * (BUFF_SIZE + 1))) == NULL)
 		return (-1);
-
 	value = read(fd, buffer, BUFF_SIZE);
-
 	if (value > 0)
 	{
 		buffer[value] = '\0';
@@ -34,7 +32,7 @@ static int		ft_getbuffer(const int fd, char **line)
 	return (value);
 }
 
-static int	read_and_join(const int fd, char **stack, char **line_feed)
+static int		read_and_join(const int fd, char **stack, char **line_feed)
 {
 	int			bytes;
 
