@@ -6,86 +6,76 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/05 20:45:18 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/05 23:47:27 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int	ft_content_grab(const int fd, char **line)
+static int		ft_getbuffer(const int fd, char **line)
 {
-	char	*content;
-	char	*swpr;
-	int		value;
+	char		*buffer;
+	char		*temp;
+	int			value;
 
-	if ((content = (char *)malloc(sizeof(*content) * (BUFF_SIZE + 1))) == NULL)
-	{
+	if ((buffer = (char *)malloc(sizeof(*buffer) * (BUFF_SIZE + 1))) == NULL)
 		return (-1);
-	}
-	value = read(fd, content, BUFF_SIZE);
+
+	value = read(fd, buffer, BUFF_SIZE);
+
 	if (value > 0)
 	{
-		content[value] = '\0';
-		swpr = ft_strjoin(*line, content);
+		buffer[value] = '\0';
+		temp = ft_strjoin(*line, buffer);
 		free(*line);
-		*line = swpr;
+		*line = temp;
 	}
-	free(content);
+	free(buffer);
 	return (value);
 }
 
-static int	content_compiler(const int fd, char **storage, char **content_checker)
+static int	read_and_join(const int fd, char **stack, char **line_feed)
 {
-	int		content_size;
+	int			bytes;
 
-	while(content_checker == '\0')
+	while (*line_feed == '\0')
 	{
-		content_size = ft_content_grab(fd, *&storage);
-		if (content_size == 0)
+		bytes = ft_getbuffer(fd, *&stack);
+		if (bytes == 0)
 		{
-			if (ft_strlen(*storage) == 0)
-			{
+			if (ft_strlen(*stack) == 0)
 				return (0);
-			}
-			*storage = ft_strjoin(*storage, "\n");
+			*stack = ft_strjoin(*stack, "\n");
 		}
-		if (content_size < 0)
-		{
+		if (bytes < 0)
 			return (-1);
-		}
 		else
-		{
-			*content_checker = ft_strchr(*storage, '\n');
-		}
+			*line_feed = ft_strchr(*stack, '\n');
 	}
 	return (1);
 }
 
-int	get_next_line(const int fd, char **line)
+int				get_next_line(const int fd, char **line)
 {
-	static char	*storage = NULL;
-	char		*swpr;
-	int			cc_value;
-	char		*content_checker;
+	static char	*stack = NULL;
+	char		*temp;
+	int			ret;
+	char		*line_feed;
 
-	if ((!storage && (storage = (char *)malloc(sizeof(*storage))) == NULL) || 
-			!line || fd < 0 || BUFF_SIZE < 0)
-	{
+	if ((!stack && (stack = (char*)malloc(sizeof(*stack))) == NULL) || !line
+			|| fd < 0 || BUFF_SIZE < 0)
 		return (-1);
-	}
-	content_checker = ft_strchr(storage, '\n');
-	cc_value = content_compiler(fd, &storage, &content_checker);
-	if (cc_value == 0 || cc_value == -1)
+	line_feed = ft_strchr(stack, '\n');
+	ret = read_and_join(fd, &stack, &line_feed);
+	if (ret == 0 || ret == -1)
 	{
-		if (cc_value == 0)
-		{
+		if (ret == 0)
 			*line = ft_strdup("");
-		}
-		return (cc_value);
+		return (ret);
 	}
-	*line = ft_strsub(storage, 0, ft_strlen(storage) - ft_strlen(content_checker));
-	swpr = ft_strdup(content_checker + 1);
-	ft_strdel(&storage);
-	storage = swpr;
-	return (cc_value);
+	*line = ft_strsub(stack, 0, ft_strlen(stack) - ft_strlen(line_feed));
+	temp = ft_strdup(line_feed + 1);
+	ft_strdel(&stack);
+	stack = temp;
+	return (ret);
 }
