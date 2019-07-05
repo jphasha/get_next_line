@@ -6,7 +6,7 @@
 #    By: jphasha <marvin@42.fr>                     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/07/04 15:04:37 by jphasha           #+#    #+#              #
-#    Updated: 2019/07/04 16:06:33 by jphasha          ###   ########.fr        #
+#    Updated: 2019/07/05 20:58:19 by jphasha          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ SOURCES = get_next_line.c
 
 OBJECTS = get_next_line.o
 
-LFT = libft/libft.a
+LFT = libft.a
 
 flags = -Wall -Wextra -Werror
 
@@ -30,7 +30,9 @@ $(OBJECTS): $(SOURCES)
 	$(CC) -c $(SOURCES) $(flags)
 
 $(LFT):
-	make -C libft/ re -C libft/
+	make -C libft/ re
+
+re: fclean
 
 all: $(NAME)
 
@@ -38,7 +40,7 @@ clean:
 	rm -rf $(OBJECTS)
 	make -C libft/ clean
 
-fclean:
+fclean: clean
 	rm -rf $(NAME) a.out run_gnl
 	make -C libft/ fclean
 
