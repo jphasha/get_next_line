@@ -6,7 +6,7 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/04 18:17:41 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/05 10:15:22 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	ft_content_grab(const int fd, char **line)
 	char	*swpr;
 	int		value;
 
-	if ((buffer = (char *)malloc(sizeof(*buffer) * (BUFF_SIZE + 1))) == NULL)
+	if ((content = (char *)malloc(sizeof(*content) * (BUFF_SIZE + 1))) == NULL)
 	{
 		return (-1);
 	}
