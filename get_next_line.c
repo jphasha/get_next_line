@@ -6,7 +6,7 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/09 09:35:38 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/09 11:07:00 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ static int		ft_get_chunk(const int fd, char **store)
 	return (characters);
 }
 
-static int		line_builder(const int fd, char **store, char **line_check)
+static int		line_builder(const int fd, char **char_stock, char **line_check)
 {
 	int			characters;
 
 	while (*line_check == '\0')
 	{
-		characters = ft_get_chunk(fd, *&store);
+		characters = ft_get_chunk(fd, *&char_stock);
 		if (characters == 0)
 		{
-			if (ft_strlen(*store) == 0)
+			if (ft_strlen(*char_stock) == 0)
 				return (0);
-			*store = ft_strjoin(*store, "\n");
+			*char_stock = ft_strjoin(*char_stock, "\n");
 		}
 		if (characters < 0)
 			return (-1);
 		else
-			*line_check = ft_strchr(*store, '\n');
+			*line_check = ft_strchr(*char_stock, '\n');
 	}
 	return (1);
 }
