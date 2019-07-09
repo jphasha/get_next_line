@@ -6,74 +6,74 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/06/27 16:23:11 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/06 00:09:42 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/09 09:35:38 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static int		ft_getbuffer(const int fd, char **line)
+static int		ft_get_chunk(const int fd, char **store)
 {
-	char		*buffer;
-	char		*temp;
-	int			value;
+	char		*chunk;
+	char		*swpr;
+	int			characters;
 
-	if ((buffer = (char *)malloc(sizeof(*buffer) * (BUFF_SIZE + 1))) == NULL)
+	if ((chunk = (char *)malloc(sizeof(*chunk) * (BUFF_SIZE + 1))) == NULL)
 		return (-1);
-	value = read(fd, buffer, BUFF_SIZE);
-	if (value > 0)
+	characters = read(fd, chunk, BUFF_SIZE);
+	if (characters > 0)
 	{
-		buffer[value] = '\0';
-		temp = ft_strjoin(*line, buffer);
-		free(*line);
-		*line = temp;
+		chunk[characters] = '\0';
+		swpr = ft_strjoin(*store, chunk);
+		free(*store);
+		*store = swpr;
 	}
-	free(buffer);
-	return (value);
+	free(chunk);
+	return (characters);
 }
 
-static int		read_and_join(const int fd, char **stack, char **line_feed)
+static int		line_builder(const int fd, char **store, char **line_check)
 {
-	int			bytes;
+	int			characters;
 
-	while (*line_feed == '\0')
+	while (*line_check == '\0')
 	{
-		bytes = ft_getbuffer(fd, *&stack);
-		if (bytes == 0)
+		characters = ft_get_chunk(fd, *&store);
+		if (characters == 0)
 		{
-			if (ft_strlen(*stack) == 0)
+			if (ft_strlen(*store) == 0)
 				return (0);
-			*stack = ft_strjoin(*stack, "\n");
+			*store = ft_strjoin(*store, "\n");
 		}
-		if (bytes < 0)
+		if (characters < 0)
 			return (-1);
 		else
-			*line_feed = ft_strchr(*stack, '\n');
+			*line_check = ft_strchr(*store, '\n');
 	}
 	return (1);
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	static char	*stack = NULL;
-	char		*temp;
-	int			ret;
-	char		*line_feed;
+	static char	*store = NULL;
+	char		*swpr;
+	int			ret_val;
+	char		*line_grab;
 
-	if ((!stack && (stack = (char*)malloc(sizeof(*stack))) == NULL) || !line
+	if ((!store && (store = (char*)malloc(sizeof(*store))) == NULL) || !line
 			|| fd < 0 || BUFF_SIZE < 0)
 		return (-1);
-	line_feed = ft_strchr(stack, '\n');
-	ret = read_and_join(fd, &stack, &line_feed);
-	if (ret == 0 || ret == -1)
+	line_grab = ft_strchr(store, '\n');
+	ret_val = line_builder(fd, &store, &line_grab);
+	if (ret_val <= 0)
 	{
-		if (ret == 0)
+		if (ret_val == 0)
 			*line = ft_strdup("");
-		return (ret);
+		return (ret_val);
 	}
-	*line = ft_strsub(stack, 0, ft_strlen(stack) - ft_strlen(line_feed));
-	temp = ft_strdup(line_feed + 1);
-	ft_strdel(&stack);
-	stack = temp;
-	return (ret);
+	*line = ft_strsub(store, 0, ft_strlen(store) - ft_strlen(line_grab));
+	swpr = ft_strdup(line_grab + 1);
+	ft_strdel(&store);
+	store = swpr;
+	return (ret_val);
 }
