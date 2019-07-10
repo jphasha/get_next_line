@@ -6,17 +6,17 @@
 /*   By: jphasha <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/07/09 13:21:39 by jphasha           #+#    #+#             */
-/*   Updated: 2019/07/09 16:02:54 by jphasha          ###   ########.fr       */
+/*   Updated: 2019/07/10 09:56:56 by jphasha          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-/*
+
 int	main(int ac, char *av[])
 {
 	int fd;
 	int i = 1;
-	int k = 0;
+	//int k = 0;
 	int ret_value = 0;
 	char *output = NULL;
 	
@@ -44,16 +44,16 @@ int	main(int ac, char *av[])
 	}
 	ft_putendl("FINISHED READING.");
 	return (0);
-}*/
+}
 
-int	main(int ac, char *av[])
+/*int	main(int ac, char *av[])
 {
 	int fd1;
 	int fd2;
 	int fd1_ret;
 	int fd2_ret;
-	int fd1_counter;
-	int fd2_counter;
+	int fd1_counter = 1;
+	int fd2_counter = 1;
 	char *fd1_output;
 	char *fd2_output;
 
@@ -78,7 +78,9 @@ int	main(int ac, char *av[])
 			ft_putendl(fd1_output);
 			fd1_counter++;
 		}
+		ft_putchar('\n');
 		ft_putendl("'FILE DESCRIPTOR 1' reading complete");
+		ft_putchar('\n');
 
 		fd2 = open(av[2], O_RDONLY);
 		if (fd2 < 0)
@@ -99,7 +101,8 @@ int	main(int ac, char *av[])
 			ft_putendl(fd2_output);
 			fd2_counter++;
 		}
+		ft_putchar('\n');
 		ft_putendl("all 'FILE DESCRIPTORS' are read");
 	}
 	return (0);
-}
+}*/
