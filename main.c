@@ -28,8 +28,8 @@ int	main(int ac, char *av[])
 			ft_putendl("an error occured while trying to open your 'FILE DESCRIPTOR'.");
 			return (-1);
 		}
-		if ((ret_value = get_next_line(fd, &output)) < 0)
-		{
+		if ((ret_value = get_next_line(fd, &output)) < 0) . //NB!! this if statement will hide the first read line
+		{						    //provided there is no error. comment out the if statement to see all the lines.
 			ft_putendl("could not read from your 'FILE DESCRIPTOR'/error.");
 			return(-1);
 		}
